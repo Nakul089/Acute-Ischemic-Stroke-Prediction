@@ -1,0 +1,33 @@
+Contracting Path (Encoder)
+Input Shape: (96, 128, 3)
+Number of Filters: Starts with 32 and doubles at each downsampling step.
+Blocks in the Contracting Path:
+Convolutional Blocks: Consist of two convolutional layers followed by optional dropout and max-pooling.
+Each Convolutional Layer:
+Kernel Size: 3x3
+Activation: ReLU
+Padding: 'same'
+Kernel Initializer: 'HeNormal'
+Max Pooling: Halves the spatial dimensions (2x2 pool size).
+Expanding Path (Decoder)
+Input Shapes: Vary based on the downsampling steps.
+Number of Filters: Halves at each upsampling step.
+Blocks in the Expanding Path:
+Upsampling Blocks: Perform transposed convolutions followed by concatenation with the corresponding contractive path layer.
+Transposed Convolution (Upsampling):
+Kernel Size: 3x3
+Strides: 2x2
+Padding: 'same'
+Concatenation: Merges the upsampled output with the corresponding contractive path's output.
+Two Convolutional Layers after Concatenation:
+Similar to the contractive path but operates on the concatenated feature maps.
+Output Layer
+Output Shape: (96, 128, 23)
+Output Layer Details:
+Final Convolution: 1x1
+Padding: 'same'
+Linear Activation ('linear')
+Kernel Initializer: 'GlorotUniform'
+Number of Output Channels: 23 (representing different classes or segmentation masks)
+Model Parameters
+Total Number of Layers: 32 (approximate)
